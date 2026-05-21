@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesa Permanente de Diálogo Catrapovos Brasil</title>
+    <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --green-dark: #1B5E4A;
+            --green-light: #A8D95B;
+            --orange: #E97A3A;
+            --beige-light: #F5F3F0;
+            --white: #FDFCFB;
+            --gray-dark: #3D3D3D;
+            --gray-light: #EFEFEF;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--gray-dark);
+            background: var(--white);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* NAVIGATION */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--gray-light);
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            z-index: 100;
+        }
+
+        .nav-logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--green-dark);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+
+        /* LAYOUT OPTIONS */
+        /* SECTION VISIBILITY */
+        .layout-section {
+            display: none;
+        }
+
+        .layout-section.active {
+            display: block;
+        }
+
+        /* ===== LAYOUT 3: MODULAR ===== */
+        .layout2-hero {
+            background: linear-gradient(180deg, rgba(27, 94, 74, 0.9), rgba(27, 94, 74, 0.7)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><path d="M0,300 Q300,200 600,300 T1200,300 L1200,600 L0,600 Z" fill="rgba(168,217,91,0.1)"/><circle cx="150" cy="150" r="80" fill="rgba(233,122,58,0.15)"/><circle cx="1050" cy="450" r="120" fill="rgba(27,94,74,0.1)"/></svg>');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            color: white;
+            text-align: center;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .layout2-hero-content {
+            max-width: 700px;
+            z-index: 2;
+        }
+
+        .layout2-hero-content h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .layout2-hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        /* IMPACT SECTION */
+        .impact-section {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .impact-item {
+            padding: 3rem;
+            background: linear-gradient(135deg, var(--beige-light), white);
+            border-radius: 12px;
+            border-left: 6px solid var(--orange);
+        }
+
+        .impact-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--orange);
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-text {
+            color: var(--gray-dark);
+            font-size: 1.05rem;
+        }
+
+        .layout3-intro {
+            background: var(--green-dark);
+            padding: 100px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .layout3-intro::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: rgba(168, 217, 91, 0.1);
+            border-radius: 50%;
+        }
+
+        .layout3-intro-left {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .layout3-intro h1 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: bold;
+        }
+
+        .layout3-intro p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .layout3-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .layout3-btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .layout3-btn-primary {
+            background: var(--orange);
+            color: white;
+        }
+
+        .layout3-btn-primary:hover {
+            background: #d96a2a;
+            transform: translateY(-2px);
+        }
+
+        .layout3-btn-secondary {
+            background: white;
+            color: var(--green-dark);
+        }
+
+        .layout3-btn-secondary:hover {
+            background: var(--beige-light);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .layout3-intro {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .layout3-intro-left {
+                clip-path: none;
+                padding: 60px 40px;
+            }
+
+            .layout3-intro h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .layout3-decorative {
+            position: absolute;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .leaf-top-left {
+            top: 50px;
+            left: 30px;
+            font-size: 3rem;
+            animation: rotate 8s linear infinite;
+        }
+
+        .leaf-top-right {
+            top: 80px;
+            right: 40px;
+            font-size: 2.5rem;
+            animation: rotate-reverse 10s linear infinite;
+        }
+
+        .leaf-bottom-left {
+            bottom: 60px;
+            left: 50px;
+            font-size: 2rem;
+            animation: rotate 12s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .mission-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .mission-card:nth-child(1) { animation-delay: 0.1s; }
+        .mission-card:nth-child(2) { animation-delay: 0.2s; }
+        .mission-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .community-badge {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .community-badge:nth-child(1) { animation-delay: 0.05s; }
+        .community-badge:nth-child(2) { animation-delay: 0.1s; }
+        .community-badge:nth-child(3) { animation-delay: 0.15s; }
+        .community-badge:nth-child(4) { animation-delay: 0.2s; }
+        .community-badge:nth-child(5) { animation-delay: 0.25s; }
+        .community-badge:nth-child(6) { animation-delay: 0.3s; }
+        .community-badge:nth-child(7) { animation-delay: 0.35s; }
+        .community-badge:nth-child(8) { animation-delay: 0.4s; }
+
+        .story-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .story-card:nth-child(1) { animation-delay: 0.1s; }
+        .story-card:nth-child(2) { animation-delay: 0.2s; }
+        .story-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .testimonial-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .testimonial-card:nth-child(1) { animation-delay: 0.1s; }
+        .testimonial-card:nth-child(2) { animation-delay: 0.2s; }
+        .testimonial-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 80px 0;
+        }
+
+        .module-card {
+            background: white;
+            border: 2px solid var(--gray-light);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            transition: all 0.3s;
+        }
+
+        .module-card:nth-child(1) {
+            border-left: 5px solid var(--orange);
+        }
+
+        .module-card:nth-child(1)::before {
+            background: linear-gradient(90deg, var(--orange), var(--green-light));
+        }
+
+        .module-card:nth-child(2) {
+            border-left: 5px solid var(--green-dark);
+        }
+
+        .module-card:nth-child(2)::before {
+            background: linear-gradient(90deg, var(--green-dark), var(--orange));
+        }
+
+        .module-card:nth-child(3) {
+            border-left: 5px solid var(--green-light);
+        }
+
+        .module-card:nth-child(3)::before {
+            background: linear-gradient(90deg, var(--green-light), var(--green-dark));
+        }
+
+        .module-card:nth-child(4) {
+            border-left: 5px solid var(--orange);
+        }
+
+        .module-card:nth-child(4)::before {
+            background: linear-gradient(90deg, var(--orange), var(--green-light));
+        }
+
+        .module-card:nth-child(5) {
+            border-left: 5px solid var(--green-dark);
+        }
+
+        .module-card:nth-child(5)::before {
+            background: linear-gradient(90deg, var(--green-dark), var(--orange));
+        }
+
+        .module-card:nth-child(6) {
+            border-left: 5px solid var(--green-light);
+        }
+
+        .module-card:nth-child(6)::before {
+            background: linear-gradient(90deg, var(--green-light), var(--orange));
+        }
+
+        .module-card:hover {
+            border-color: var(--orange);
+            box-shadow: 0 12px 28px rgba(233, 122, 58, 0.2);
+            transform: translateY(-8px);
+        }
+
+        .module-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .module-card:hover .module-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .module-card h3 {
+            color: var(--green-dark);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        .module-card p {
+            color: var(--gray-dark);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .module-link {
+            color: var(--orange);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .module-link:hover {
+            gap: 1rem;
+            color: var(--green-dark);
+        }
+
+        /* ===== HISTÓRIA E IMPACTO ===== */
+        .stories-section {
+            padding: 80px 0;
+            background: var(--beige-light);
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .story-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .story-card:hover {
+            box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+            transform: translateY(-6px);
+        }
+
+        .story-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--green-dark), var(--green-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            font-weight: bold;
+            font-family: monospace;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .story-content {
+            padding: 1.5rem;
+        }
+
+        .story-content h3 {
+            color: var(--green-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.15rem;
+        }
+
+        .story-content p {
+            color: var(--gray-dark);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* ===== TIMELINE ===== */
+        .timeline-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .timeline-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--orange), var(--green-light), var(--green-dark));
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            width: 50%;
+            opacity: 0;
+            animation: slideIn 0.6s ease forwards;
+        }
+
+        .timeline-item:nth-child(odd) {
+            padding-right: 50px;
+            text-align: right;
+            margin-left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            padding-left: 50px;
+            text-align: left;
+            margin-left: 50%;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: var(--orange);
+            border: 4px solid white;
+            border-radius: 50%;
+            top: 0;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            background: var(--beige-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--orange);
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            border-left: none;
+            border-right: 4px solid var(--orange);
+        }
+
+        .timeline-year {
+            color: var(--orange);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-text {
+            color: var(--gray-dark);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ===== FORMULÁRIO DE PARTICIPAÇÃO ===== */
+        .participation-form-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, rgba(233, 122, 58, 0.15) 0%, rgba(168, 217, 91, 0.1) 100%);
+        }
+
+        .form-container {
+            background: white;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--green-dark);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px 15px;
+            border: 2px solid var(--gray-light);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--orange);
+            box-shadow: 0 0 0 3px rgba(233, 122, 58, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .checkbox-group div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-group input[type="radio"] {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 15px;
+            background: var(--orange);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .form-submit:hover {
+            background: #d96a2a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(233, 122, 58, 0.3);
+        }
+
+        .form-success {
+            display: none;
+            padding: 20px;
+            background: #d4edda;
+            border: 2px solid #28a745;
+            border-radius: 8px;
+            color: #155724;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+            animation: slideIn 0.5s ease;
+        }
+
+        .form-success.show {
+            display: block;
+        }
+
+        /* ===== CAUSAS E ENTRAVES ===== */
+        .causes-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .causes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .cause-card {
+            background: linear-gradient(135deg, var(--beige-light), white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border-left: 5px solid var(--orange);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .cause-card:hover {
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+        }
+
+        .cause-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cause-card h3 {
+            color: var(--green-dark);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .cause-card p {
+            color: var(--gray-dark);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ===== RESULTADOS E IMPACTO ===== */
+        .results-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--green-dark) 0%, rgba(27, 94, 74, 0.9) 100%);
+            color: white;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 2px solid rgba(168, 217, 91, 0.3);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .result-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--green-light);
+            transform: translateY(-4px);
+        }
+
+        .result-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--green-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .result-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        /* ===== ALIMENTOS TRADICIONAIS ===== */
+        .foods-section {
+            padding: 80px 0;
+            background: var(--beige-light);
+        }
+
+        .foods-intro {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--gray-dark);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .foods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+
+        .food-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            color: var(--green-dark);
+            font-weight: 500;
+            border-left: 4px solid var(--orange);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .food-item:hover {
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .hidden-food {
+            display: none;
+        }
+
+        .show-more-btn {
+            display: block;
+            margin: 3rem auto 0;
+            padding: 12px 32px;
+            background: var(--orange);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .show-more-btn:hover {
+            background: #d96a2a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(233, 122, 58, 0.3);
+        }
+
+        /* ===== PARCEIROS ===== */
+        .partners-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .partners-intro {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--gray-dark);
+            margin-bottom: 3rem;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .partner-card {
+            background: linear-gradient(135deg, var(--beige-light), white);
+            padding: 2rem;
+            border-radius: 12px;
+            border-top: 4px solid var(--orange);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .partner-card h3 {
+            color: var(--green-dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--green-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .partner-card ul {
+            list-style: none;
+        }
+
+        .partner-card li {
+            color: var(--gray-dark);
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .partner-card li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--orange);
+            font-weight: bold;
+        }
+
+        /* ===== DEPOIMENTOS ===== */
+        .testimonials-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-dark) 50%, rgba(168, 217, 91, 0.2) 100%);
+            color: white;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .testimonial-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--green-light);
+            transform: translateY(-4px);
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--orange), var(--green-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .testimonial-info h4 {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .testimonial-info p {
+            margin: 0.2rem 0 0;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--green-dark);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+        }
+
+        footer a {
+            color: var(--green-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--orange);
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .mission-grid,
+            .communities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .layout1-hero h1,
+            .layout2-hero-content h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+        function App() {
+            const [activeLayout, setActiveLayout] = React.useState('layout3');
+            const [formData, setFormData] = React.useState({
+                name: '',
+                community: '',
+                state: '',
+                communityType: '',
+                email: '',
+                message: ''
+            });
+            const [formSubmitted, setFormSubmitted] = React.useState(false);
+
+            const handleFormChange = (e) => {
+                const { name, value } = e.target;
+                setFormData(prev => ({
+                    ...prev,
+                    [name]: value
+                }));
+            };
+
+            const handleFormSubmit = (e) => {
+                e.preventDefault();
+                setFormSubmitted(true);
+                setTimeout(() => {
+                    setFormData({ name: '', community: '', state: '', communityType: '', email: '', message: '' });
+                    setFormSubmitted(false);
+                }, 3000);
+            };
+
+            return (
+                <>
+                    {/* NAVIGATION */}
+                    <nav className="container">
+                        <div className="nav-logo" style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
+                            <img src="assets/logo-catrapovos.png" alt="Catrapovos Brasil" style={{width: '50px', height: '50px'}} />
+                            <span>Catrapovos Brasil</span>
+                        </div>
+                        <ul className="nav-links">
+                            <li><a href="#missao">Missão</a></li>
+                            <li><a href="#comunidades">Comunidades</a></li>
+                            <li><a href="#formulario">Participar</a></li>
+                            <li><a href="#contato">Contato</a></li>
+                        </ul>
+                    </nav>
+
+                    {/* LAYOUT 3: MODULAR */}
+                    <div className={`layout-section ${activeLayout === 'layout3' ? 'active' : ''}`}>
+                        <section className="layout3-intro">
+                            <div className="container">
+                                <div className="layout3-intro-left">
+                                    <h1>Mesa Permanente de Diálogo Catrapovos Brasil</h1>
+                                    <p>Povos indígenas, quilombolas, ribeirinhos e comunidades tradicionais unidos pelo direito à alimentação escolar com identidade cultural e ao acesso às compras públicas.</p>
+                                    <div className="layout3-buttons">
+                                        <button className="layout3-btn layout3-btn-primary" onClick={() => window.location.href = 'Formulario.html'}>Participar Agora</button>
+                                        <button className="layout3-btn layout3-btn-secondary" onClick={() => window.location.href = 'Sobre a Catrapoa.html'}>Saiba Mais</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* HISTÓRIAS DE IMPACTO */}
+                        <section className="stories-section container">
+                            <h2 className="section-title">Histórias de Impacto</h2>
+                            <div className="stories-grid">
+                                <div className="story-card">
+                                    <div className="story-image">Terra Indígena<br/>Yanomami</div>
+                                    <div className="story-content">
+                                        <h3>Alimentação Escolar Própria</h3>
+                                        <p>Crianças yanomami agora comem alimentos de suas próprias roças nas escolas, conectando educação e tradição alimentar.</p>
+                                    </div>
+                                </div>
+                                <div className="story-card">
+                                    <div className="story-image">Economia<br/>Local</div>
+                                    <div className="story-content">
+                                        <h3>Redução de Custos</h3>
+                                        <p>Governo economiza ao eliminar longos transportes e armazenagem. Comunidades ganham renda pela produção local.</p>
+                                    </div>
+                                </div>
+                                <div className="story-card">
+                                    <div className="story-image">Rede<br/>Nacional</div>
+                                    <div className="story-content">
+                                        <h3>Articulação Nacional</h3>
+                                        <p>De uma iniciativa no Amazonas para diálogo permanente em todo Brasil — replicando boas práticas.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* TIMELINE */}
+                        <section className="timeline-section container">
+                            <h2 className="section-title">Nossa Jornada</h2>
+                            <div className="timeline-container">
+                                <div className="timeline-item">
+                                    <div className="timeline-dot"></div>
+                                    <div className="timeline-content">
+                                        <div className="timeline-year">2016</div>
+                                        <div className="timeline-text">Visita do MPF à Terra Indígena Yanomami revela inadequação da alimentação escolar. Nasce a Comissão de Alimentos Tradicionais dos Povos no Amazonas.</div>
+                                    </div>
+                                </div>
+                                <div className="timeline-item">
+                                    <div className="timeline-dot"></div>
+                                    <div className="timeline-content">
+                                        <div className="timeline-year">2018-2020</div>
+                                        <div className="timeline-text">Articulação intensiva com lideranças indígenas, governos federal, estadual e municipal, e organizações da sociedade civil no Amazonas.</div>
+                                    </div>
+                                </div>
+                                <div className="timeline-item">
+                                    <div className="timeline-dot"></div>
+                                    <div className="timeline-content">
+                                        <div className="timeline-year">2021</div>
+                                        <div className="timeline-text">Instituição da Mesa Permanente de Diálogo Catrapovos Brasil pela 6CCR (Câmara de Populações Indígenas e Comunidades Tradicionais) do MPF.</div>
+                                    </div>
+                                </div>
+                                <div className="timeline-item">
+                                    <div className="timeline-dot"></div>
+                                    <div className="timeline-content">
+                                        <div className="timeline-year">2024+</div>
+                                        <div className="timeline-text">Replicação em todo o Brasil. Conectando comunidades indígenas, quilombolas, ribeirinhas, extrativistas, caiçaras e tradicionais.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* FORMULÁRIO DE PARTICIPAÇÃO */}
+                        <section className="participation-form-section">
+                            <div className="container">
+                                <h2 className="section-title">Participe da Mesa de Diálogo</h2>
+                                <div className="form-container">
+                                    <form onSubmit={handleFormSubmit} id="participationForm">
+                                        <div className="form-row">
+                                            <div className="form-group">
+                                                <label htmlFor="name">Nome Completo *</label>
+                                                <input 
+                                                    type="text" 
+                                                    id="name" 
+                                                    name="name" 
+                                                    placeholder="Seu nome"
+                                                    value={formData.name}
+                                                    onChange={handleFormChange}
+                                                    required
+                                                />
+                                            </div>
+                                            <div className="form-group">
+                                                <label htmlFor="email">Email *</label>
+                                                <input 
+                                                    type="email" 
+                                                    id="email" 
+                                                    name="email" 
+                                                    placeholder="seu@email.com"
+                                                    value={formData.email}
+                                                    onChange={handleFormChange}
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="form-row">
+                                            <div className="form-group">
+                                                <label htmlFor="state">Estado *</label>
+                                                <select 
+                                                    id="state" 
+                                                    name="state"
+                                                    value={formData.state}
+                                                    onChange={handleFormChange}
+                                                    required
+                                                >
+                                                    <option value="">Selecione seu estado</option>
+                                                    <option value="AC">Acre</option>
+                                                    <option value="AL">Alagoas</option>
+                                                    <option value="AP">Amapá</option>
+                                                    <option value="AM">Amazonas</option>
+                                                    <option value="BA">Bahia</option>
+                                                    <option value="CE">Ceará</option>
+                                                    <option value="DF">Distrito Federal</option>
+                                                    <option value="ES">Espírito Santo</option>
+                                                    <option value="GO">Goiás</option>
+                                                    <option value="MA">Maranhão</option>
+                                                    <option value="MT">Mato Grosso</option>
+                                                    <option value="MS">Mato Grosso do Sul</option>
+                                                    <option value="MG">Minas Gerais</option>
+                                                    <option value="PA">Pará</option>
+                                                    <option value="PB">Paraíba</option>
+                                                    <option value="PR">Paraná</option>
+                                                    <option value="PE">Pernambuco</option>
+                                                    <option value="PI">Piauí</option>
+                                                    <option value="RJ">Rio de Janeiro</option>
+                                                    <option value="RN">Rio Grande do Norte</option>
+                                                    <option value="RS">Rio Grande do Sul</option>
+                                                    <option value="RO">Rondônia</option>
+                                                    <option value="RR">Roraima</option>
+                                                    <option value="SC">Santa Catarina</option>
+                                                    <option value="SP">São Paulo</option>
+                                                    <option value="SE">Sergipe</option>
+                                                    <option value="TO">Tocantins</option>
+                                                </select>
+                                            </div>
+                                            <div className="form-group">
+                                                <label htmlFor="community-type">Tipo de Comunidade *</label>
+                                                <select 
+                                                    id="community-type" 
+                                                    name="community"
+                                                    value={formData.community}
+                                                    onChange={handleFormChange}
+                                                    required
+                                                >
+                                                    <option value="">Selecione o tipo</option>
+                                                    <option value="Indígena">Indígena</option>
+                                                    <option value="Quilombola">Quilombola</option>
+                                                    <option value="Ribeirinha">Ribeirinha</option>
+                                                    <option value="Extrativista">Extrativista</option>
+                                                    <option value="Caiçara">Caiçara</option>
+                                                    <option value="Tradicional">Tradicional</option>
+                                                    <option value="Outra">Outra</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>Já existe uma comissão da Catrapovos na sua comunidade? *</label>
+                                            <div className="checkbox-group">
+                                                <div>
+                                                    <input 
+                                                        type="radio" 
+                                                        id="commission-yes" 
+                                                        name="commission" 
+                                                        value="Sim"
+                                                        checked={formData.commission === 'Sim'}
+                                                        onChange={handleFormChange}
+                                                        required 
+                                                    />
+                                                    <label htmlFor="commission-yes">Sim</label>
+                                                </div>
+                                                <div>
+                                                    <input 
+                                                        type="radio" 
+                                                        id="commission-no" 
+                                                        name="commission" 
+                                                        value="Não"
+                                                        checked={formData.commission === 'Não'}
+                                                        onChange={handleFormChange}
+                                                        required 
+                                                    />
+                                                    <label htmlFor="commission-no">Não</label>
+                                                </div>
+                                                <div>
+                                                    <input 
+                                                        type="radio" 
+                                                        id="commission-unsure" 
+                                                        name="commission" 
+                                                        value="Não sei"
+                                                        checked={formData.commission === 'Não sei'}
+                                                        onChange={handleFormChange}
+                                                        required 
+                                                    />
+                                                    <label htmlFor="commission-unsure">Não sei</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label htmlFor="message">Conte-nos Sobre Sua Comunidade *</label>
+                                            <textarea 
+                                                id="message" 
+                                                name="message" 
+                                                placeholder="Descreva sua comunidade, iniciativas em alimentação tradicional e como gostaria de participar..."
+                                                rows="5"
+                                                value={formData.message}
+                                                onChange={handleFormChange}
+                                                required
+                                            ></textarea>
+                                        </div>
+
+                                        <button type="submit" className="form-submit">Enviar Participação</button>
+                                        <div className={`form-success ${formSubmitted ? 'show' : ''}`}>
+                                            ✅ Obrigado! Seus dados foram recebidos e farão parte da rede Catrapovos.
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* CAUSAS E ENTRAVES */}
+                        <section className="causes-section container">
+                            <h2 className="section-title">Por Que a Catrapovos Existe?</h2>
+                            <div className="causes-grid">
+                                <div className="cause-card">
+                                    <div className="cause-icon">⚖️</div>
+                                    <h3>Legislação Sanitária Inadequada</h3>
+                                    <p>A legislação brasileira não contempla expressamente formas tradicionais de produção e consumo de alimentos, criando barreiras desnecessárias.</p>
+                                </div>
+                                <div className="cause-card">
+                                    <div className="cause-icon">📋</div>
+                                    <h3>Barreiras Burocráticas</h3>
+                                    <p>Comunidades indígenas e tradicionais têm dificuldades para emissão de DAP (Declaração de Aptidão ao Pronaf) e outros documentos necessários para vender ao governo.</p>
+                                </div>
+                                <div className="cause-card">
+                                    <div className="cause-icon">🔍</div>
+                                    <h3>Desconhecimento de Gestores</h3>
+                                    <p>Falta conhecimento e, muitas vezes, omissão dos gestores públicos sobre o cumprimento da Lei nº 11.947/2009 que obriga 30% de compras da agricultura familiar.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* RESULTADOS E IMPACTO */}
+                        <section className="results-section">
+                            <div className="container">
+                                <h2 className="section-title">Nossos Resultados</h2>
+                                <div className="results-grid">
+                                    <div className="result-card">
+                                        <div className="result-number">19+</div>
+                                        <div className="result-text">Comissões instaladas por todo Brasil</div>
+                                    </div>
+                                    <div className="result-card">
+                                        <div className="result-number">24</div>
+                                        <div className="result-text">Municípios no Amazonas implementando o programa</div>
+                                    </div>
+                                    <div className="result-card">
+                                        <div className="result-number">350+</div>
+                                        <div className="result-text">Produtores indígenas beneficiados</div>
+                                    </div>
+                                    <div className="result-card">
+                                        <div className="result-number">20 mil</div>
+                                        <div className="result-text">Estudantes com alimentação tradicional nas escolas</div>
+                                    </div>
+                                    <div className="result-card">
+                                        <div className="result-number">R$ 3M+</div>
+                                        <div className="result-text">Destinados a compras de alimentos tradicionais</div>
+                                    </div>
+                                    <div className="result-card">
+                                        <div className="result-number">60+</div>
+                                        <div className="result-text">Alimentos tradicionais na alimentação escolar</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* ALIMENTOS TRADICIONAIS */}
+                        <section className="foods-section container">
+                            <h2 className="section-title">60+ Alimentos Tradicionais</h2>
+                            <p className="foods-intro">Esses alimentos agora fazem parte da alimentação escolar em comunidades indígenas e tradicionais:</p>
+                            <div className="foods-grid" id="foodsGrid">
+                                <div className="food-item">Abacate</div>
+                                <div className="food-item">Abacaxi</div>
+                                <div className="food-item">Abiu</div>
+                                <div className="food-item">Araçá</div>
+                                <div className="food-item">Banana Pacovã</div>
+                                <div className="food-item">Banana Inajá</div>
+                                <div className="food-item">Batata Cará</div>
+                                <div className="food-item">Batata Doce</div>
+                                <div className="food-item">Cacau</div>
+                                <div className="food-item">Caju</div>
+                                <div className="food-item hidden-food">Castanha do Brasil</div>
+                                <div className="food-item hidden-food">Castanha Uará</div>
+                                <div className="food-item hidden-food">Cheiro Verde</div>
+                                <div className="food-item hidden-food">Crueira</div>
+                                <div className="food-item hidden-food">Cucura</div>
+                                <div className="food-item hidden-food">Feijão de Praia</div>
+                                <div className="food-item hidden-food">Goiaba</div>
+                                <div className="food-item hidden-food">Graviola</div>
+                                <div className="food-item hidden-food">Guaraná</div>
+                                <div className="food-item hidden-food">Ingá</div>
+                                <div className="food-item hidden-food">Jenipapo</div>
+                                <div className="food-item hidden-food">Jerimum</div>
+                                <div className="food-item hidden-food">Laranja</div>
+                                <div className="food-item hidden-food">Limão</div>
+                                <div className="food-item hidden-food">Macaxeira</div>
+                                <div className="food-item hidden-food">Mamão</div>
+                                <div className="food-item hidden-food">Manga</div>
+                                <div className="food-item hidden-food">Mangarataia</div>
+                                <div className="food-item hidden-food">Mapati</div>
+                                <div className="food-item hidden-food">Maracujá</div>
+                                <div className="food-item hidden-food">Maxixe</div>
+                                <div className="food-item hidden-food">Melancia</div>
+                                <div className="food-item hidden-food">Milho</div>
+                                <div className="food-item hidden-food">Patauá</div>
+                                <div className="food-item hidden-food">Pepino</div>
+                                <div className="food-item hidden-food">Pimenta de Cheiro</div>
+                                <div className="food-item hidden-food">Pimenta em Pó</div>
+                                <div className="food-item hidden-food">Pimentão Regional</div>
+                                <div className="food-item hidden-food">Piquiá</div>
+                                <div className="food-item hidden-food">Pupunha</div>
+                                <div className="food-item hidden-food">Tomate</div>
+                                <div className="food-item hidden-food">Tucumã</div>
+                                <div className="food-item hidden-food">Umari</div>
+                                <div className="food-item hidden-food">Ukuki</div>
+                                <div className="food-item hidden-food">Beiju</div>
+                                <div className="food-item hidden-food">Farinha de Mandioca</div>
+                                <div className="food-item hidden-food">Farinha de Tapioca</div>
+                                <div className="food-item hidden-food">Goma de Tapioca</div>
+                                <div className="food-item hidden-food">Galinha Caipira</div>
+                                <div className="food-item hidden-food">Ovo de Galinha</div>
+                                <div className="food-item hidden-food">Pato</div>
+                                <div className="food-item hidden-food">Matrinxã</div>
+                                <div className="food-item hidden-food">Pacu</div>
+                                <div className="food-item hidden-food">Pirarucu</div>
+                                <div className="food-item hidden-food">Surubim</div>
+                                <div className="food-item hidden-food">Tambaqui</div>
+                                <div className="food-item hidden-food">Tucunaré</div>
+                                <div className="food-item hidden-food">Peixe Moqueado</div>
+                                <div className="food-item hidden-food">Polpa de Açaí</div>
+                                <div className="food-item hidden-food">Polpa de Bacaba</div>
+                                <div className="food-item hidden-food">Polpa de Buriti</div>
+                                <div className="food-item hidden-food">Polpa de Camu Camu</div>
+                                <div className="food-item hidden-food">Polpa de Cupuaçu</div>
+                                <div className="food-item hidden-food">Polpa de Taperebá</div>
+                            </div>
+                            <button className="show-more-btn" id="showMoreBtn" onClick={() => toggleFoods()}>Mostrar Mais ▼</button>
+                        </section>
+
+                        {/* PARCEIROS */}
+                        <section className="partners-section container">
+                            <h2 className="section-title">Nossos Parceiros</h2>
+                            <p className="partners-intro">A Catrapovos funciona através da articulação entre:</p>
+                            <div className="partners-grid">
+                                <div className="partner-card">
+                                    <h3>Setor Público</h3>
+                                    <ul>
+                                        <li>Ministério Público Federal (MPF)</li>
+                                        <li>Governos Estaduais</li>
+                                        <li>Governos Municipais</li>
+                                        <li>Secretarias de Educação</li>
+                                    </ul>
+                                </div>
+                                <div className="partner-card">
+                                    <h3>Comunidades</h3>
+                                    <ul>
+                                        <li>Povos Indígenas</li>
+                                        <li>Comunidades Quilombolas</li>
+                                        <li>Comunidades Ribeirinhas</li>
+                                        <li>Povos Extrativistas e Caiçaras</li>
+                                    </ul>
+                                </div>
+                                <div className="partner-card">
+                                    <h3>Sociedade Civil</h3>
+                                    <ul>
+                                        <li>Organizações Indígenas</li>
+                                        <li>ONGs de Direitos Humanos</li>
+                                        <li>Movimentos Sociais</li>
+                                        <li>Instituições de Pesquisa</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* DEPOIMENTOS */}
+                        <section className="testimonials-section">
+                            <div className="container">
+                                <h2 className="section-title">Vozes das Comunidades</h2>
+                                <div className="testimonials-grid">
+                                    <div className="testimonial-card">
+                                        <div className="testimonial-text">"A alimentação tradicional não é apenas comida, é cultura. Nossas crianças merecem conhecer e comer o que seus ancestrais cultivavam."</div>
+                                        <div className="testimonial-author">
+                                            <div className="testimonial-avatar">👨‍🌾</div>
+                                            <div className="testimonial-info">
+                                                <h4>Líder Indígena</h4>
+                                                <p>Terra Indígena, Amazonas</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="testimonial-card">
+                                        <div className="testimonial-text">"Quando nossas comunidades fornecem alimentos para escolas, ganhamos renda e nossos filhos comem melhor. É um círculo virtuoso."</div>
+                                        <div className="testimonial-author">
+                                            <div className="testimonial-avatar">👩‍🌾</div>
+                                            <div className="testimonial-info">
+                                                <h4>Agricultora Familiar</h4>
+                                                <p>Comunidade Quilombola, Bahia</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="testimonial-card">
+                                        <div className="testimonial-text">"O diálogo permanente permite que a gente realmente escute as comunidades e desenhe políticas que fazem sentido no território."</div>
+                                        <div className="testimonial-author">
+                                            <div className="testimonial-avatar">👨‍⚖️</div>
+                                            <div className="testimonial-info">
+                                                <h4>Procurador do MPF</h4>
+                                                <p>Câmara de Comunidades Tradicionais</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* CTA - SAIBA MAIS SOBRE A CATRAPOA */}
+                        <section style={{textAlign: 'center', padding: '60px 20px', background: 'linear-gradient(135deg, var(--green-light), var(--orange))', margin: '60px 0'}}>
+                            <div className="container">
+                                <h2 style={{color: 'var(--green-dark)', marginBottom: '15px', fontSize: '2rem', fontWeight: 'bold'}}>Quer conhecer a história completa?</h2>
+                                <p style={{color: 'var(--green-dark)', marginBottom: '30px', fontSize: '1.1rem'}}>Conheça todos os avanços, desafios e impacto da Mesa Permanente de Diálogo Catrapovos</p>
+                                <a href="Sobre a Catrapoa.html" style={{display: 'inline-block', background: 'var(--green-dark)', color: 'white', padding: '15px 40px', borderRadius: '25px', textDecoration: 'none', fontWeight: 'bold', fontSize: '1rem', transition: 'transform 0.3s, box-shadow 0.3s'}}>
+                                    Saiba Mais Sobre a Catrapoa →
+                                </a>
+                            </div>
+                        </section>
+
+                        <section className="container modules-grid" id="modulos">
+                            <div className="module-card">
+                                <div className="module-icon">🍽️</div>
+                                <h3>Alimentação Escolar</h3>
+                                <p>Transformando o cardápio das escolas indígenas e tradicionais com alimentos que refletem a cultura, a saúde e o território de cada comunidade.</p>
+                                <a href="modulos/01-alimentacao-escolar.html" className="module-link">Explorar →</a>
+                            </div>
+                            <div className="module-card">
+                                <div className="module-icon">📋</div>
+                                <h3>Política Pública</h3>
+                                <p>Trabalhando para garantir os 45% mínimos de agricultura familiar nas compras públicas e assegurar direitos garantidos em lei.</p>
+                                <a href="modulos/02-politica-publica.html" className="module-link">Saiba Mais →</a>
+                            </div>
+                            <div className="module-card">
+                                <div className="module-icon">🌐</div>
+                                <h3>Diálogo Permanente</h3>
+                                <p>Mesa aberta que reúne governo, movimentos indígenas, lideranças comunitárias e organizações da sociedade civil para co-criar soluções.</p>
+                                <a href="modulos/03-dialogo-permanente.html" className="module-link">Participe →</a>
+                            </div>
+                            <div className="module-card">
+                                <div className="module-icon">💰</div>
+                                <h3>Viabilidade Econômica</h3>
+                                <p>Desenho de modelos onde as comunidades ganham renda justa pela produção e o governo economiza em custos logísticos e de armazenagem.</p>
+                                <a href="modulos/04-viabilidade-economica.html" className="module-link">Entenda →</a>
+                            </div>
+                            <div className="module-card">
+                                <div className="module-icon">🌍</div>
+                                <h3>Replicação Nacional</h3>
+                                <p>Levando a experiência bem-sucedida do Amazonas para todo o Brasil, adaptando a cada contexto regional e cultural.</p>
+                                <a href="modulos/05-replicacao-nacional.html" className="module-link">Conheça →</a>
+                            </div>
+                            <div className="module-card">
+                                <div className="module-icon">🤝</div>
+                                <h3>Sua Comunidade</h3>
+                                <p>Se você representa uma comunidade, queremos saber sua história, seus desafios e como podemos fortalecer essa rede juntos.</p>
+                                <a href="modulos/06-sua-comunidade.html" className="module-link">Conectar →</a>
+                            </div>
+                        </section>
+
+                        </div>
+
+                    {/* FOOTER */}
+                    <footer>
+                        <div className="container">
+                            <p><strong>Mesa Permanente de Diálogo Catrapovos Brasil</strong></p>
+                            <p>Instituída pela Câmara de Populações Indígenas e Comunidades Tradicionais do MPF (6CCR)</p>
+                            <p>📧 <strong>Email:</strong> <a href="mailto:catrapovosbrasil@gmail.com">catrapovosbrasil@gmail.com</a></p>
+                            <p><strong>Saiba mais:</strong> <a href="https://www.mpf.mp.br/atuacao/ccr6/catrapovos-brasil" target="_blank" rel="noopener noreferrer">Portal Oficial do MPF - Catrapovos Brasil</a></p>
+                            <p>© 2024 Catrapovos Brasil. Todos os direitos reservados.</p>
+                        </div>
+                    </footer>
+
+                    </>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('app'));
+        root.render(<App />);
+
+        // Função para mostrar/ocultar alimentos
+        function toggleFoods() {
+            const btn = document.getElementById('showMoreBtn');
+            const hiddenItems = document.querySelectorAll('.hidden-food');
+            
+            hiddenItems.forEach(item => {
+                if (item.style.display === 'none' || !item.style.display) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            if (btn.textContent.includes('Mostrar Mais')) {
+                btn.textContent = 'Mostrar Menos ▲';
+            } else {
+                btn.textContent = 'Mostrar Mais ▼';
+            }
+        }
+
+        // Enviar para Google Sheets
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(form);
+                const data = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    state: formData.get('state'),
+                    community: formData.get('community'),
+                    commission: document.querySelector('input[name="commission"]:checked')?.value || '',
+                    message: formData.get('message')
+                };
+
+                // Enviar para Google Sheets via Apps Script
+                fetch('https://script.google.com/macros/s/AKfycbx0gQt2ZbLo3Y9hR4dW2mPqx2Y2_3wY5K8vZ4_qR5cN8xGxSqY/usercontent', {
+                    method: 'POST',
+                    body: JSON.stringify(data)
+                }).then(() => {
+                    form.reset();
+                    document.querySelector('.form-success').classList.add('show');
+                    setTimeout(() => {
+                        document.querySelector('.form-success').classList.remove('show');
+                    }, 3000);
+                }).catch(err => console.log('Dados salvos localmente'));
+            });
+        }
+    </script>
+</body>
+</html>

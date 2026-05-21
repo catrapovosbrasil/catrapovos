@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre a Catrapoa - Mesa de Diálogo Permanente Catrapovos Brasil</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-light) 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        nav {
+            background: white;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        nav a {
+            display: inline-block;
+            margin-right: 20px;
+            color: var(--green-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--orange);
+        }
+
+        .section {
+            background: white;
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: var(--orange);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--green-light);
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            color: var(--green-dark);
+            font-size: 1.4rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .reflexoes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .reflexao-card {
+            background: linear-gradient(135deg, #f0f9f7 0%, #e8f5f1 100%);
+            padding: 25px;
+            border-left: 4px solid var(--orange);
+            border-radius: 8px;
+        }
+
+        .reflexao-card p {
+            font-style: italic;
+            color: #555;
+            margin: 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 50px;
+            width: 2px;
+            height: 50px;
+            background: var(--green-light);
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-dot {
+            width: 40px;
+            height: 40px;
+            background: var(--orange);
+            border: 3px solid white;
+            border-radius: 50%;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+            margin-right: 20px;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding: 15px 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .timeline-content strong {
+            color: var(--green-dark);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .conquistas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .conquista-card {
+            background: linear-gradient(135deg, #fff8f0 0%, #ffe8d6 100%);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid var(--orange);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .conquista-card h4 {
+            color: var(--green-dark);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .conquista-card p {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .desafios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .desafio-card {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #d32f2f;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .desafio-card h4 {
+            color: #d32f2f;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .desafio-card p {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .imagem-destaque {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 25px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .funcoes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .funcao-card {
+            background: linear-gradient(135deg, #f0f5ff 0%, #e6f0ff 100%);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #1565c0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .funcao-card h4 {
+            color: #1565c0;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .funcao-card p {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .conclusao {
+            background: linear-gradient(135deg, #f0f9f7 0%, #e8f5f1 100%);
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 4px solid var(--green-dark);
+            margin-top: 30px;
+        }
+
+        .conclusao p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--green-dark);
+            font-weight: 500;
+        }
+
+        footer {
+            background: var(--green-dark);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: var(--green-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            nav a {
+                display: block;
+                margin-bottom: 10px;
+            }
+        }
+
+        :root {
+            --green-dark: #1b5e3f;
+            --green-light: #a8d08d;
+            --orange: #ed7d31;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sobre a Catrapoa</h1>
+        <p>Mesa de Diálogo Permanente Catrapovos Brasil</p>
+    </header>
+
+    <div class="container">
+        <nav>
+            <a href="Catrapovos Homepage.html">← Voltar à Homepage</a>
+            <a href="#reflexoes">Reflexões</a>
+            <a href="#historia">História</a>
+            <a href="#conquistas">Conquistas</a>
+            <a href="#desafios">Desafios</a>
+            <a href="#mesas">Mesas Estaduais</a>
+            <a href="#conclusao">Conclusão</a>
+        </nav>
+
+        <!-- REFLEXÕES -->
+        <section class="section" id="reflexoes">
+            <h2>Reflexões que Geraram a Catrapoa</h2>
+            <p>A Catrapoa nasceu de perguntas simples, mas poderosas, feitas por lideranças de comunidades tradicionais:</p>
+            
+            <div class="reflexoes">
+                <div class="reflexao-card">
+                    <p>"Quem aqui já viu uma comunidade cheia de alimento, mas com a escola cheia de comida de pacote?"</p>
+                </div>
+                <div class="reflexao-card">
+                    <p>"Quem já ouviu uma liderança dizer: a gente doa o peixe, mas não pode vender?"</p>
+                </div>
+                <div class="reflexao-card">
+                    <p>"E quem já teve a sensação de que a política pública parece feita para excluir e não para incluir?"</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 25px;">
+                <strong>Pois é. Foi em cima dessas perguntas que nasceu uma coisa linda chamada Catrapoa.</strong> 
+                Um lugar de construir, não apenas denunciar. Onde política pública ganha cheiro de terra, gosto de farinha, cor de urucum.
+            </p>
+        </section>
+
+        <!-- HISTÓRIA -->
+        <section class="section" id="historia">
+            <h2>O Nascimento de uma Ideia Poderosa</h2>
+            
+            <h3>2016 - Amazonas: Onde Tudo Começou</h3>
+            <p>
+                A história da Catrapoa começa no Amazonas em 2016, quando escolas próximas a comunidades indígenas e tradicionais 
+                estavam cercadas de alimentos tradicionais, mas as merendas escolares vinham de longe, ultraprocessadas e desconectadas 
+                da realidade local.
+            </p>
+            
+
+
+            <h3>Marcos Importantes</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <strong>2016 - História da Catrapoa</strong>
+                        <p>Amazonas, 2016 - Surge a ideia de conectar alimentação escolar com alimentos tradicionais</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <strong>Escolas com Comida Ultraprocessada</strong>
+                        <p>Mesmo cercadas de alimentos tradicionais, as escolas recebiam comida industrializada</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <strong>MPF Coordena Criação da Comissão</strong>
+                        <p>Ministério Público Federal coordenou a criação da Comissão denominada Catrapoa</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <strong>Nota Técnica Histórica (2017)</strong>
+                        <p>Reconhecimento do autoconsumo/consumo familiar (NT 01/2017 – SFA/ADAF/MPF)</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <strong>Adequação do PNAE aos Povos Tradicionais</strong>
+                        <p>PNAE adequado aos modos de vida de Povos e Comunidades Tradicionais (PCTs)</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <strong>2024 - Expansão Nacional</strong>
+                        <p><strong>19 Comissões em 18 estados</strong> - A Catrapoa se espalhou por todo o Brasil</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <strong>Prêmio Innovare</strong>
+                        <p>Reconhecimento nacional do modelo como inovação replicável</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>A Principal Inovação</h3>
+            <p>
+                A principal inovação da Catrapoa viabiliza a compra pública de proteínas (pequenos animais) 
+                e produtos vegetais processados (derivados da mandioca, polpa de frutos etc) diretamente do produtor indígena, 
+                próximo às escolas nas aldeias e comunidades, por considerar-las estratégias de produção, autoconsumo e 
+                de controle alimentar inseridos dentro da cultura dos povos indígenas e comunidades tradicionais.
+            </p>
+            <p>
+                Na prática, a Nota Técnica nº 3/2020 possibilita a <strong>dispensa de registro, inspeção e fiscalização 
+                dos alimentos produzidos nas aldeias para a comercialização às escolas.</strong>
+            </p>
+
+
+        </section>
+
+        <!-- CONQUISTAS -->
+        <section class="section" id="conquistas">
+            <h2>O Que Já Conquistamos</h2>
+            <p>A Catrapoa tem alcançado resultados concretos e significativos:</p>
+
+            <div class="conquistas">
+                <div class="conquista-card">
+                    <h4>✅ Resolução Específica para PCTs</h4>
+                    <p>Resolução específica para Povos e Comunidades Tradicionais com base na ideia de autoconsumo/consumo familiar</p>
+                </div>
+
+                <div class="conquista-card">
+                    <h4>✅ Reconhecimento de Órgãos Federais</h4>
+                    <p>FNDE e CONAB reconhecem e apoiam essa diretriz</p>
+                </div>
+
+                <div class="conquista-card">
+                    <h4>✅ NIS Aceito como Documento</h4>
+                    <p>NIS passou a ser aceito em detrimento do CAF, beneficiando comunidades tradicionais</p>
+                </div>
+
+                <div class="conquista-card">
+                    <h4>✅ Chamadas Públicas Específicas</h4>
+                    <p>Modelos de chamadas públicas específicas para PCTs em vários municípios</p>
+                </div>
+
+                <div class="conquista-card">
+                    <h4>✅ Compromissos com Poder Público</h4>
+                    <p>Compromissos com secretarias e órgãos públicos para implementação</p>
+                </div>
+
+                <div class="conquista-card">
+                    <h4>✅ Reconhecimento Nacional</h4>
+                    <p>Modelo replicável com reconhecimento nacional — Prêmio Innovare</p>
+                </div>
+            </div>
+
+            <h3>Resultados Financeiros (2019-2024)</h3>
+            <p>
+                <strong>R$ 8.927.007,06</strong> movimentados em Compras Públicas para Povos Indígenas e 
+                Comunidades Tradicionais no Amazonas (2019-2023). Em 2024-2025, continuamos expandindo esse valor.
+            </p>
+
+
+        </section>
+
+        <!-- DESAFIOS -->
+        <section class="section" id="desafios">
+            <h2>Desafios Estruturais em Nível Federal</h2>
+            <p>
+                Apesar dos avanços significativos, ainda existem desafios estruturais que precisam ser enfrentados:
+            </p>
+
+            <h3>🌳 Infraestrutura e Logística</h3>
+            <p>
+                Regiões remotas enfrentam longas distâncias, alto custo de combustível e precariedade de transporte. 
+                Escolas indígenas e ribeirinhas chegam a ficar 120 a 180 dias sem merenda. 
+                O fornecimento externo gera altíssimo custo, desperdício e alimentos em condições duvidosas.
+            </p>
+
+
+
+            <h3>📋 Burocracia Inacessível</h3>
+            <p>
+                Emissão de nota fiscal, abertura de MEI, obtenção de CAF ou DAP ainda são entraves para muitos povos. 
+                Sistemas de cadastro não reconhecem a diversidade dos perfis produtivos tradicionais.
+            </p>
+
+
+
+            <h3>🎓 Barreiras Culturais e Institucionais</h3>
+            <p>
+                Falta de nutricionistas com formação intercultural. Desconhecimento de alimentos tradicionais. 
+                Resistência de gestores locais na implementação.
+            </p>
+
+            <h3>👁️ Invisibilidade dos Sistemas Alimentares Tradicionais</h3>
+            <p>
+                Desvalorização histórica dos alimentos tradicionais afastou cardápios escolares das realidades locais. 
+                Padronização normativa que não reconhece a diversidade. Exclusão das categorias alimentares tradicionais. 
+                Racismo alimentar institucional.
+            </p>
+
+
+        </section>
+
+        <!-- MESAS ESTADUAIS -->
+        <section class="section" id="mesas">
+            <h2>O Papel das Mesas Estaduais Catrapovos</h2>
+            
+            <p>
+                As mesas estaduais são <strong>o elo transformador entre legislação federal, realidade territorial e produção tradicional.</strong>
+            </p>
+
+            <h3>Instâncias de Governança Permanente</h3>
+            <p>
+                As mesas estaduais reúnem MPF, ministérios, secretarias estaduais, vigilâncias sanitárias, 
+                lideranças PCT e sociedade civil, criando espaços permanentes de pactuação.
+            </p>
+
+            <div class="funcoes">
+                <div class="funcao-card">
+                    <h4>🔍 Escutam Territórios</h4>
+                    <p>Entendem os desafios específicos de cada comunidade e região</p>
+                </div>
+
+                <div class="funcao-card">
+                    <h4>📢 Transformam Demanda</h4>
+                    <p>Convertem necessidades locais em encaminhamentos concretos</p>
+                </div>
+
+                <div class="funcao-card">
+                    <h4>⚖️ Cobram Cumprimento</h4>
+                    <p>Fiscalizam e monitoram implementação de leis e políticas</p>
+                </div>
+
+                <div class="funcao-card">
+                    <h4>🤝 Criam Resoluções</h4>
+                    <p>Orientam, acompanham e resolvem conflitos de forma colaborativa</p>
+                </div>
+            </div>
+
+            <h3>Resultados Concretos</h3>
+            <ul style="margin: 20px 0 20px 20px; line-height: 2;">
+                <li><strong>Inclusão de alimentos tradicionais</strong> no cardápio escolar</li>
+                <li><strong>Geração de renda local</strong> para produtores indígenas e tradicionais</li>
+                <li><strong>Redução de custos logísticos</strong> com alimentação local</li>
+                <li><strong>Vencimento do Prêmio Innovare</strong> — reconhecimento nacional</li>
+                <li><strong>Referência para expansão nacional</strong> — modelo replicável</li>
+            </ul>
+
+            <h3>Expansão Nacional</h3>
+            <p>
+                Hoje a Catrapova está presente em <strong>18 estados</strong>, com <strong>6 em implantação</strong> 
+                (SE, ES, AL, PI, PR, SP). É referência nacional para FNDE e MDA, com articulação em andamento com 
+                organismos internacionais.
+            </p>
+
+
+        </section>
+
+        <!-- CONCLUSÃO -->
+        <section class="section" id="conclusao">
+            <h2>Considerações Finais</h2>
+
+            <div class="conclusao">
+                <p>
+                    A reconstrução das políticas de compras públicas no Brasil revela um movimento decisivo: 
+                    a superação do modelo homogêneo, urbano e industrial de abastecimento, que por décadas orientou PNAE e PAA, 
+                    em direção a um paradigma plural, intercultural e territorializado.
+                </p>
+
+                <p style="margin-top: 20px;">
+                    Os avanços recentes mostram que o Estado brasileiro começa, finalmente, a reconhecer que os sistemas 
+                    alimentares tradicionais não são resquícios do passado, mas sim infraestruturas vivas de futuro, 
+                    fundamentais para a soberania e segurança alimentar do país.
+                </p>
+
+                <p style="margin-top: 20px;">
+                    Contudo, a consolidação dessa agenda demanda coragem política, vontade institucional e continuidade 
+                    no diálogo com os povos e comunidades tradicionais. É nesse ponto que as mesas estaduais Catrapovos 
+                    emergem como o instrumento mais eficaz de transformação: espaços permanentes de pactuação, que traduzem 
+                    a lei em prática, aproximam o Estado dos territórios e garantem que decisões sejam construídas com quem 
+                    produz, prepara e cuida do alimento.
+                </p>
+
+                <p style="margin-top: 20px; font-style: italic; font-weight: bold;">
+                    Elas representam uma nova gramática de política pública: intercultural, participativa, territorial, 
+                    antirracista e plural, rompendo com décadas de invisibilidade e silenciamento. E mostram, na prática, 
+                    que quando o Estado escuta, respeita e aprende com os povos tradicionais, os resultados são imediatos: 
+                    escolas bem abastecidas, crianças alimentadas com dignidade, cadeias produtivas fortalecidas, economias 
+                    locais revitalizadas e territórios vivos.
+                </p>
+            </div>
+
+            <h3 style="margin-top: 40px;">O Futuro</h3>
+            <p>
+                O desafio agora é ampliar, institucionalizar e proteger esses avanços. Porque garantir a presença dos 
+                alimentos tradicionais na merenda escolar né um ato de justiça histórica. É assegurar que cada povo 
+                continue existindo como é, no lugar onde está, com os sabores, os saberes e as formas de vida que 
+                sustentam o Brasil real.
+            </p>
+
+            <p style="margin-top: 15px; font-weight: bold; color: var(--green-dark);">
+                É afirmar que alimentação é identidade, é política, é cuidado, é território — e é direito.
+            </p>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Mesa de Diálogo Permanente Catrapovos Brasil</p>
+        <p><a href="Catrapovos Homepage.html">Voltar à Homepage</a></p>
+    </footer>
+</body>
+</html>
